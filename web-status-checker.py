@@ -21,20 +21,27 @@ Checked at: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}"
         return "Request timed out"
 
 async def main():
-    coroutines_to_run = []
+    
 
     async with aiohttp.ClientSession() as session:
         with open('web-pages.txt', "r") as file1:
-            content = file1.read()
-            for url in content.split('\n'):
-                if url:
-                    coroutines_to_run.append(status_checker(url, session))
-                else: continue 
-    
-        results = await asyncio.gather(*coroutines_to_run)
-    print('Here you can see the status code of websites you previously provided:')
-    for res in results:
-        print(res, end='\n')
+
+            while True:
+                coroutines_to_run = []
+
+                content = file1.read()
+                for url in content.split('\n'):
+                    if url:
+                        coroutines_to_run.append(status_checker(url, session))
+                    else: continue 
+            
+                results = await asyncio.gather(*coroutines_to_run)
+                print('Here you can see the status code of websites you previously provided:')
+                for res in results:
+                    print(res, end='\n')
+                await asyncio.sleep(5)
+                file1.seek(0)
+
 
 t1 = time.perf_counter()
 

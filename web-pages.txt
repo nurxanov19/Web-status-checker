@@ -3,5 +3,5 @@ http://youtube.com
 http://google.com
 http://github.com
 http://nurxonov.me
-
+http://telegram.org
 http://kun.uz
